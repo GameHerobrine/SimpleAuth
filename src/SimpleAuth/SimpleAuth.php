@@ -292,6 +292,23 @@ class SimpleAuth extends PluginBase{
 					return true;
 				}
 				break;
+			case "unregister":
+				if($sender instanceof Player){
+					if(hash_equals($this->provider->getPlayer($sender)["hash"], $this->hash(strtolower($sender->getName()), implode(" ", $args)))){
+						$this->unregisterPlayer($sender);
+						$sender->sendMessage($this->getMessage("unregister.success"));
+						$this->deauthenticatePlayer($sender);
+
+						return true;
+					}
+					$sender->sendMessage($this->getMessage("unregister.error.password"));
+
+					return true;
+				}else{
+					$sender->sendMessage(TextFormat::RED . "This command only works in-game.");
+
+					return true;
+				}
 		}
 
 		return false;
@@ -335,6 +352,10 @@ class SimpleAuth extends PluginBase{
 		$loginCommand->setUsage($this->getMessage("login.usage"));
 		$loginCommand->setDescription($this->getMessage("login.description"));
 		$loginCommand->setPermissionMessage($this->getMessage("login.permission"));
+
+		$unregisterCommand = $this->getCommand("unregister");
+		$unregisterCommand->setUsage($this->getMessage("unregister.usage"));
+		$unregisterCommand->setDescription($this->getMessage("unregister.description"));
 
 		$this->blockPlayers = (int) $this->getConfig()->get("blockAfterFail", 6);
 

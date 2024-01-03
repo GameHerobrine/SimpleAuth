@@ -25,3 +25,10 @@ login:
   password: "Incorrect password!"
   registered: "This account is not registered."
   block: "Too many tries!"
+
+unregister:
+ usage: "/unregister <password>"
+ description: "Unregisters an account"
+ success: "You have been successfully unregistered."
+ error:
+  password: "Incorrect password!"

@@ -16,6 +16,10 @@ commands:
   description: "Registers an account"
   usage: "/register <password>"
   permission: simpleauth.command.register
+ unregister:
+  description: "Unregisters an account"
+  usage: "/unregister <password>"
+  permission: simpleauth.command.unregister
 
 permissions:
  simpleauth:
@@ -40,4 +44,7 @@ permissions:
       default: true
      simpleauth.command.login:
       description: "Allows logging into an account"
+      default: true
+     simpleauth.command.unregister:
+      description: "Allows unregistering an account"
       default: true
