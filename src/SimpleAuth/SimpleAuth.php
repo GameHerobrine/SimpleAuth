@@ -309,6 +309,55 @@ class SimpleAuth extends PluginBase{
 
 					return true;
 				}
+			case "simpleauth":
+				if(!isset($args[1])){
+					$sender->sendMessage("Usage: /simpleauth <unregister|authicate|deauthenticate> <player>");
+
+					return true;
+				}
+				switch($args[0]){
+					case "unregister":
+					case "unreg":
+						$player = $sender->getServer()->getOfflinePlayer($args[1]);
+						if(!$this->isPlayerRegistered($player) or $this->provider->getPlayer($player) === null){
+							$sender->sendMessage(TextFormat::RED . "This account is not registered.");
+	
+							return true;
+						}
+						$this->unregisterPlayer($player);
+						$this->deauthenticatePlayer($player);
+						$sender->sendMessage("Unregistered correctly.");
+
+						return true;
+					case "authicate":
+					case "auth":
+						$player = $sender->getServer()->getPlayer($args[1]);
+						if(!$player){
+							$sender->sendMessage(TextFormat::RED . "Player is not online.");
+
+							return true;
+						}
+						$this->authenticatePlayer($player);
+						$sender->sendMessage("Authicated successfully");
+
+						return true;
+					case "deauthenticate":
+					case "deauth":
+						$player = $sender->getServer()->getPlayer($args[1]);
+						if(!$player){
+							$sender->sendMessage(TextFormat::RED . "Player is not online.");
+
+							return true;
+						}
+						$this->deauthenticatePlayer($player);
+						$sender->sendMessage("Deauthicated successfully");
+
+						return true;
+					default:
+						$sender->sendMessage("Unknown argument.");
+
+						return true;
+				}
 		}
 
 		return false;

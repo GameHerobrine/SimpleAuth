@@ -1,6 +1,6 @@
 name: SimpleAuth
 main: SimpleAuth\SimpleAuth
-version: 1.7.1
+version: 1.7.1_php8
 api: 1.12.0
 load: STARTUP
 author: PocketMine Team
@@ -20,6 +20,10 @@ commands:
   description: "Unregisters an account"
   usage: "/unregister <password>"
   permission: simpleauth.command.unregister
+ simpleauth:
+  description: "SimpleAuth command for admins"
+  usage: "/simpleauth <unregister|authicate|deauthenticate> <player>"
+  permission: simpleauth.command.simpleauth
 
 permissions:
  simpleauth:
@@ -37,8 +41,11 @@ permissions:
     default: true
    simpleauth.command:
     description: "Allows using SimpleAuth commands"
-    default: true
+    default: op
     children:
+     simpleauth.command.simpleauth:
+      description: "Allows SimpleAuth command for admins"
+      default: op
      simpleauth.command.register:
       description: "Allows registering an account"
       default: true
